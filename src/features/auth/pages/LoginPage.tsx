@@ -1,6 +1,12 @@
 import LoginForm from "../components/LoginForm";
-
+import { useAuth } from "../hooks/useAuth";
+import { useNavigate } from "react-router-dom";
 const LoginPage = () => {
+  const { isAuthenticated } = useAuth();
+  const navigate = useNavigate();
+  if (isAuthenticated) {
+    navigate("/dashboard");
+  }
   return (
     <div className="min-h-screen flex items-center justify-center bg-slate-50 px-4">
       <div className="w-full max-w-md">
