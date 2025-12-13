@@ -1,5 +1,10 @@
-const App = () => {
-  return <div></div>;
-};
 
-export default App;
+const App = () => {
+  return (
+    <div>
+      
+    </div>
+  )
+}
+
+export default App
