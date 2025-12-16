@@ -31,7 +31,7 @@ const CreateUserPage = () => {
   const roles: UserRole[] = ["USER", "ADMIN"];
 
   return (
-    <div className="mx-auto max-w-xl">
+    <div className="mx-auto ">
       <h1 className="text-xl font-semibold text-slate-900">Create User</h1>
       <p className="mt-1 text-sm text-slate-500">
         Add a new user to the system
