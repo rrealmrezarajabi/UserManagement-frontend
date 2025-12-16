@@ -1,12 +1,14 @@
+import { useNavigate } from "react-router-dom";
 import type { User } from "../../../types/user";
 import { useDeleteUser } from "../hooks/useDeleteUser";
+
 interface UserTableProps {
   users: User[];
 }
 
 const UserTable = ({ users }: UserTableProps) => {
-
-  const deleteUser = useDeleteUser()
+  const navigate = useNavigate();
+  const deleteUser = useDeleteUser();
 
   if (users.length === 0) {
     return (
@@ -32,7 +34,6 @@ const UserTable = ({ users }: UserTableProps) => {
         <tbody className="divide-y divide-slate-200">
           {users.map((user) => (
             <tr key={user.id} className="transition hover:bg-slate-50">
-              {/* User */}
               <td className="px-4 py-3">
                 <div className="flex items-center gap-3">
                   <img
@@ -49,17 +50,14 @@ const UserTable = ({ users }: UserTableProps) => {
                 </div>
               </td>
 
-              {/* Email */}
               <td className="px-4 py-3 text-slate-700">{user.email}</td>
 
-              {/* Role */}
               <td className="px-4 py-3">
                 <span className="inline-flex rounded-full bg-slate-100 px-2.5 py-1 text-xs font-medium text-slate-700">
                   {user.role}
                 </span>
               </td>
 
-              {/* Status */}
               <td className="px-4 py-3">
                 {user.isActive ? (
                   <span className="inline-flex rounded-full bg-emerald-100 px-2.5 py-1 text-xs font-medium text-emerald-700">
@@ -72,13 +70,21 @@ const UserTable = ({ users }: UserTableProps) => {
                 )}
               </td>
 
-              {/* Actions */}
               <td className="px-4 py-3 text-right">
                 <div className="flex justify-end gap-2">
-                  <button className="rounded-lg border border-slate-200 px-3 py-1.5 text-xs font-medium text-slate-700 hover:bg-slate-50">
+                  <button
+                    type="button"
+                    onClick={() => navigate(`/dashboard/users/edit/${user.id}`)}
+                    className="rounded-lg border border-slate-200 px-3 py-1.5 text-xs font-medium text-slate-700 hover:bg-slate-50"
+                  >
                     Edit
                   </button>
-                  <button onClick={()=>deleteUser.mutate(user.id)} className="rounded-lg border border-red-200 px-3 py-1.5 text-xs font-medium text-red-600 hover:bg-red-50">
+
+                  <button
+                    type="button"
+                    onClick={() => deleteUser.mutate(user.id)}
+                    className="rounded-lg border border-red-200 px-3 py-1.5 text-xs font-medium text-red-600 hover:bg-red-50"
+                  >
                     Delete
                   </button>
                 </div>
