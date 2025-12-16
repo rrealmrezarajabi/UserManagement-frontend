@@ -13,7 +13,7 @@ export const createUser = async (user: CreateUserDto): Promise<User> => {
     return res.data
 };
 
-export const deleteUser = async (id:string):Promise<void> => {
-    const res = await axiosClient.delete("/users/${id}")
+export const deleteUser = async (id:number):Promise<void> => {
+    const res = await axiosClient.delete(`/users/${id}`)
     return res.data
 }
