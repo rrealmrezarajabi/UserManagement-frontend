@@ -25,6 +25,9 @@ const SideBar = () => {
         <NavLink to="/dashboard/users" className={linkClass}>
           Users
         </NavLink>
+        <NavLink to="/dashboard/create" className={linkClass}>
+          Create User
+        </NavLink>
       </nav>
     </aside>
   );
