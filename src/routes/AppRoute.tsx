@@ -5,6 +5,7 @@ import ProtectedRoute from "./ProtectedRoute";
 import DashBoardLayout from "../layout/DashBoardLayout";
 import UserListPage from "../features/users/pages/UserListPage";
 import HomePage from "../features/dashboard/pages/HomePage";
+import CreateUserPage from "../features/users/pages/CreateUserPage";
 const AppRoute = () => {
   return (
     <Routes>
@@ -22,6 +23,7 @@ const AppRoute = () => {
       >
         <Route index element={<HomePage />} />
         <Route path="users" element={<UserListPage />} />
+        <Route path="create" element={<CreateUserPage/>}/>
       </Route>
       <Route path="/" element={<Navigate to="/dashboard" replace />} />
     </Routes>
