@@ -35,7 +35,10 @@ const UserTable = ({ users }: UserTableProps) => {
           {users.map((user) => (
             <tr key={user.id} className="transition hover:bg-slate-50">
               <td className="px-4 py-3">
-                <div className="flex items-center gap-3">
+                <div
+                  onClick={() => navigate(`/dashboard/users/${user.id}`)}
+                  className=" cursor-pointer flex items-center gap-3"
+                >
                   <img
                     src={user.avatar}
                     alt={user.name}

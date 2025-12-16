@@ -7,7 +7,7 @@ import UserListPage from "../features/users/pages/UserListPage";
 import HomePage from "../features/dashboard/pages/HomePage";
 import CreateUserPage from "../features/users/pages/CreateUserPage";
 import EditUserPage from "../features/users/pages/editUserPage";
-
+import UserDetailPage from "../features/users/pages/UserDetailPage";
 const AppRoute = () => {
   return (
     <Routes>
@@ -29,6 +29,7 @@ const AppRoute = () => {
           <Route index element={<UserListPage />} />
           <Route path="create" element={<CreateUserPage />} />
           <Route path="edit/:id" element={<EditUserPage />} />
+          <Route path=":id" element={<UserDetailPage />} />
         </Route>
       </Route>
 
