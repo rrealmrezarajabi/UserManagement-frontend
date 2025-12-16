@@ -1,10 +1,13 @@
 import type { User } from "../../../types/user";
-
+import { useDeleteUser } from "../hooks/useDeleteUser";
 interface UserTableProps {
   users: User[];
 }
 
 const UserTable = ({ users }: UserTableProps) => {
+
+  const deleteUser = useDeleteUser()
+
   if (users.length === 0) {
     return (
       <div className="rounded-xl border border-slate-200 bg-slate-50 p-6 text-center text-sm text-slate-500">
@@ -75,7 +78,7 @@ const UserTable = ({ users }: UserTableProps) => {
                   <button className="rounded-lg border border-slate-200 px-3 py-1.5 text-xs font-medium text-slate-700 hover:bg-slate-50">
                     Edit
                   </button>
-                  <button className="rounded-lg border border-red-200 px-3 py-1.5 text-xs font-medium text-red-600 hover:bg-red-50">
+                  <button onClick={()=>deleteUser.mutate(user.id)} className="rounded-lg border border-red-200 px-3 py-1.5 text-xs font-medium text-red-600 hover:bg-red-50">
                     Delete
                   </button>
                 </div>
