@@ -22,10 +22,10 @@ const SideBar = () => {
           Dashboard
         </NavLink>
 
-        <NavLink to="/dashboard/users" className={linkClass}>
+        <NavLink to="/dashboard/users" end className={linkClass}>
           Users
         </NavLink>
-        <NavLink to="/dashboard/create" className={linkClass}>
+        <NavLink to="/dashboard/users/create" className={linkClass}>
           Create User
         </NavLink>
       </nav>
