@@ -24,3 +24,8 @@ export const updateUser = async (
   const res = await axiosClient.put<User>(`/users/${id}`, user);
   return res.data;
 };
+
+export const getUser = async (id: number): Promise<User> => {
+  const res = await axiosClient.get<User>(`/users/${id}`);
+  return res.data;
+};
