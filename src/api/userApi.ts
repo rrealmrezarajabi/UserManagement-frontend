@@ -2,8 +2,17 @@ import { axiosClient } from "./axiosClient";
 
 import type { User, CreateUserDto, UpdateUserDto } from "../types/user";
 
-export const getUsers = async (): Promise<User[]> => {
-  const res = await axiosClient.get<User[]>("/users");
+import type { PaginatedResponse } from "../types/pagination";
+
+export const getUsers = async (
+  page = 1,
+  limit = 10,
+  q?: string
+): Promise<PaginatedResponse<User>> => {
+  const res = await axiosClient.get<PaginatedResponse<User>>("/users", {
+    params: { page, limit, q },
+  });
+
   return res.data;
 };
 
