@@ -6,16 +6,16 @@ const UserListPage = () => {
   const [page, setPage] = useState(1);
   const limit = 10;
 
-  const [q, setQ] = useState(""); // متن سرچ
-  const [search, setSearch] = useState(""); // مقدار debounced
+  const [q, setQ] = useState(""); // search input
+  const [search, setSearch] = useState(""); // debounce
 
-  // Debounce ساده (۳۵۰ms)
+  // Debounce 
   useEffect(() => {
     const t = setTimeout(() => setSearch(q.trim()), 1000);
     return () => clearTimeout(t);
   }, [q]);
 
-  // وقتی سرچ عوض میشه، برگرد به صفحه 1 (خیلی مهم)
+
   useEffect(() => {
     setPage(1);
   }, [search]);

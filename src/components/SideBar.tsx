@@ -10,8 +10,8 @@ const SideBar = () => {
     ].join(" ");
 
   return (
-    <aside className="w-64 shrink-0 rounded-2xl border border-slate-200 bg-white p-4 shadow-sm">
-      <div className="mb-4">
+    <aside className="w-full shrink-0 rounded-2xl border border-slate-200 bg-white p-4 shadow-sm md:w-64">
+      <div className="mb-4 flex items-center justify-between">
         <div className="text-xs font-semibold uppercase tracking-wide text-slate-400">
           Menu
         </div>
