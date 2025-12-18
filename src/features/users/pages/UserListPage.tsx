@@ -46,7 +46,7 @@ const UserListPage = () => {
         <>
           <UserTable users={data.data} />
 
-          <div className="mt-4 flex items-center gap-2">
+          <div className="mt-6 flex justify-center items-center gap-2">
             <button
               className="rounded border px-3 py-1 disabled:opacity-50"
               disabled={!data.meta.hasPrev}
