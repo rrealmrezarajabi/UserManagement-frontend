@@ -1,73 +1,131 @@
-# React + TypeScript + Vite
+# User Management Dashboard
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A React + TypeScript admin panel for managing users. Built with Vite, React Query, and Tailwind CSS.
 
-Currently, two official plugins are available:
+## What it does
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- Login/logout with JWT tokens stored in localStorage
+- Protected routes that redirect to login if you're not authenticated
+- Full CRUD for users (create, read, update, delete)
+- User list with pagination and search (debounced)
+- Dashboard with some basic stats and charts
+- User detail page showing all user info
 
-## React Compiler
+## Tech stack
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- React 19
+- TypeScript
+- Vite
+- React Router 7
+- React Query (TanStack Query) for API calls and caching
+- React Hook Form for forms
+- Axios for HTTP requests
+- Tailwind CSS 4
 
-## Expanding the ESLint configuration
+## Setup
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+npm install
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+Create a `.env` file:
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
 ```
+VITE_API_BASE_URL=http://localhost:3000
+```
+
+Run dev server:
+
+```bash
+npm run dev
+```
+
+Build:
+
+```bash
+npm run build
+```
+
+## Project structure
+
+```
+src/
+├── api/              # API calls (authApi, userApi)
+├── components/       # NavBar, SideBar
+├── features/         # Organized by feature
+│   ├── auth/         # Login, AuthContext, useAuth hook
+│   ├── dashboard/    # HomePage with stats
+│   └── users/        # User CRUD pages and hooks
+├── layout/           # MainLayout, DashBoardLayout
+├── routes/           # AppRoute, ProtectedRoute
+├── types/            # TypeScript types
+└── utils/            # Helper functions
+```
+
+## How it works
+
+### Authentication
+
+- Login form sends credentials to `/auth/login`
+- Token gets saved to localStorage
+- `AuthContext` manages auth state globally
+- `ProtectedRoute` checks if user is logged in before rendering
+- If not authenticated, redirects to `/login`
+
+### User management
+
+- List page fetches users with pagination (10 per page)
+- Search is debounced by 1 second
+- Create/Edit forms use React Hook Form
+- After mutations, React Query invalidates the cache to refetch data
+- Delete works with optimistic updates
+
+### State management
+
+- React Query handles all server state (users, auth)
+- AuthContext for authentication state
+- Local state (useState) for UI stuff like search input, page number
+
+## API endpoints needed
+
+The backend should have:
+
+- `POST /auth/login` - returns `{ user, token }`
+- `GET /auth/me` - returns current user
+- `GET /users?page=1&limit=10&q=search` - paginated user list
+- `GET /users/:id` - single user
+- `POST /users` - create user
+- `PUT /users/:id` - update user
+- `DELETE /users/:id` - delete user
+
+All authenticated requests need `Authorization: Bearer <token>` header. Axios interceptor handles this automatically.
+
+## What I learned/built
+
+- Set up React Query for API calls and caching
+- Implemented protected routes with React Router
+- Used React Hook Form for form handling
+- Created reusable components (NavBar, SideBar, layouts)
+- Organized code by features instead of file types
+- Added TypeScript types for everything
+- Built a simple dashboard with stats and charts (no chart library, just CSS)
+- Handled loading and error states
+- Debounced search input
+- Used Axios interceptors for auth tokens
+
+## Things that could be improved
+
+- Add tests (Vitest + React Testing Library)
+- Token refresh logic
+- Better error handling/toast notifications
+- More robust form validation
+- Loading skeletons instead of just "Loading..."
+- Dark mode maybe
+- Export to CSV functionality
+
+## Notes
+
+- The dashboard chart is a simple CSS bar chart, no external library
+- Search debounce is 1 second
+- Pagination is 10 items per page
+- Token is stored in localStorage (not the most secure, but works for this project)
